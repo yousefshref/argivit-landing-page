@@ -537,8 +537,8 @@
     // Show success
     document.getElementById('confirmName').textContent = '👤 ' + name + ' — ' + phone;
     document.getElementById('confirmDetails').textContent = govName + ' — ' + address + ' | الإجمالي: ' + total.toLocaleString('ar-EG') + ' جنيه';
-    document.getElementById('formScreen').classList.add('hide');
-    document.getElementById('successScreen').classList.add('show');
+    document.getElementById('formScreen').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
   }
 
   // Scroll reveal
