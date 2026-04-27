@@ -1,553 +1,742 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أرجيفيت فوكس - دليل زيادة الطول</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-  * { font-family: 'Cairo', sans-serif; }
-  :root {
-    --green: #2ecc71;
-    --green-dark: #27ae60;
-    --green-light: #eafaf1;
-    --text: #1a1a2e;
-    --gray: #6b7280;
-    --border: #e5e7eb;
-  }
-  body { background: #f9fafb; color: var(--text); }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>أرجيفيت فوكس - دليل زيادة الطول</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      * {
+        font-family: "Cairo", sans-serif;
+      }
+      :root {
+        --green: #2ecc71;
+        --green-dark: #27ae60;
+        --green-light: #eafaf1;
+        --text: #1a1a2e;
+        --gray: #6b7280;
+        --border: #e5e7eb;
+      }
+      body {
+        background: #f9fafb;
+        color: var(--text);
+      }
 
-  /* Hero */
-  .hero-bg {
-    background: linear-gradient(135deg, #eafaf1 0%, #d5f5e3 50%, #f0fdf4 100%);
-  }
+      /* Hero */
+      .hero-bg {
+        background: linear-gradient(
+          135deg,
+          #eafaf1 0%,
+          #d5f5e3 50%,
+          #f0fdf4 100%
+        );
+      }
 
-  /* Product images */
-  .img-thumb {
-    width: 72px; height: 72px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .img-thumb.active, .img-thumb:hover {
-    border-color: var(--green);
-    transform: scale(1.05);
-  }
+      /* Product images */
+      .img-thumb {
+        width: 72px;
+        height: 72px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .img-thumb.active,
+      .img-thumb:hover {
+        border-color: var(--green);
+        transform: scale(1.05);
+      }
 
-  /* CTA Button */
-  .btn-buy {
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
-    color: white;
-    font-size: 1.2rem;
-    font-weight: 800;
-    padding: 18px 48px;
-    border-radius: 16px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 8px 24px rgba(46,204,113,0.35);
-    width: 100%;
-    letter-spacing: 0.5px;
-  }
-  .btn-buy:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(46,204,113,0.45);
-  }
-  .btn-buy:active { transform: translateY(0); }
+      /* CTA Button */
+      .btn-buy {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 800;
+        padding: 18px 48px;
+        border-radius: 16px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 8px 24px rgba(46, 204, 113, 0.35);
+        width: 100%;
+        letter-spacing: 0.5px;
+      }
+      .btn-buy:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(46, 204, 113, 0.45);
+      }
+      .btn-buy:active {
+        transform: translateY(0);
+      }
 
-  /* Badge */
-  .badge {
-    background: #fff3cd;
-    color: #856404;
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    display: inline-block;
-  }
+      /* Badge */
+      .badge {
+        background: #fff3cd;
+        color: #856404;
+        font-size: 0.8rem;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 20px;
+        display: inline-block;
+      }
 
-  /* Testimonial cards */
-  .testimonial-card {
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    transition: transform 0.2s;
-  }
-  .testimonial-card:hover { transform: translateY(-4px); }
+      /* Testimonial cards */
+      .testimonial-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s;
+      }
+      .testimonial-card:hover {
+        transform: translateY(-4px);
+      }
 
-  /* Modal */
-  .modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal-box {
-    background: white;
-    border-radius: 24px;
-    padding: 32px 24px;
-    width: 100%;
-    max-width: 480px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.2);
-  }
+      /* Modal */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+      .modal-box {
+        background: white;
+        border-radius: 24px;
+        padding: 32px 24px;
+        width: 100%;
+        max-width: 480px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+      }
 
-  /* Form inputs */
-  .form-input {
-    width: 100%;
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 16px;
-    font-size: 1rem;
-    font-family: 'Cairo', sans-serif;
-    outline: none;
-    transition: border-color 0.2s;
-    background: #f9fafb;
-    color: var(--text);
-  }
-  .form-input:focus { border-color: var(--green); background: white; }
+      /* Form inputs */
+      .form-input {
+        width: 100%;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 14px 16px;
+        font-size: 1rem;
+        font-family: "Cairo", sans-serif;
+        outline: none;
+        transition: border-color 0.2s;
+        background: #f9fafb;
+        color: var(--text);
+      }
+      .form-input:focus {
+        border-color: var(--green);
+        background: white;
+      }
 
-  .form-label {
-    font-weight: 700;
-    font-size: 0.95rem;
-    margin-bottom: 6px;
-    display: block;
-    color: var(--text);
-  }
+      .form-label {
+        font-weight: 700;
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+        display: block;
+        color: var(--text);
+      }
 
-  /* Order summary */
-  .summary-box {
-    background: var(--green-light);
-    border-radius: 16px;
-    padding: 16px;
-    border: 1.5px solid #a9dfbf;
-  }
+      /* Order summary */
+      .summary-box {
+        background: var(--green-light);
+        border-radius: 16px;
+        padding: 16px;
+        border: 1.5px solid #a9dfbf;
+      }
 
-  /* Order button */
-  .btn-order {
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
-    color: white;
-    font-size: 1.1rem;
-    font-weight: 800;
-    padding: 16px;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s;
-    box-shadow: 0 6px 20px rgba(46,204,113,0.3);
-  }
-  .btn-order:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(46,204,113,0.4); }
+      /* Order button */
+      .btn-order {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 800;
+        padding: 16px;
+        border-radius: 14px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s;
+        box-shadow: 0 6px 20px rgba(46, 204, 113, 0.3);
+      }
+      .btn-order:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 24px rgba(46, 204, 113, 0.4);
+      }
 
-  /* Success */
-  .success-screen { display: none; text-align: center; padding: 24px 0; }
-  .success-screen.show { display: block; }
-  .form-screen.hide { display: none; }
+      /* Success */
+      .success-screen {
+        display: none;
+        text-align: center;
+        padding: 24px 0;
+      }
+      .success-screen.show {
+        display: block;
+      }
+      .form-screen.hide {
+        display: none;
+      }
 
-  /* Pulse animation on CTA */
-  @keyframes pulse-green {
-    0%, 100% { box-shadow: 0 8px 24px rgba(46,204,113,0.35); }
-    50% { box-shadow: 0 8px 32px rgba(46,204,113,0.6); }
-  }
-  .btn-buy { animation: pulse-green 2.5s infinite; }
+      /* Pulse animation on CTA */
+      @keyframes pulse-green {
+        0%,
+        100% {
+          box-shadow: 0 8px 24px rgba(46, 204, 113, 0.35);
+        }
+        50% {
+          box-shadow: 0 8px 32px rgba(46, 204, 113, 0.6);
+        }
+      }
+      .btn-buy {
+        animation: pulse-green 2.5s infinite;
+      }
 
-  /* Features */
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-  }
-  .feature-icon {
-    width: 36px; height: 36px;
-    background: var(--green-light);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-  }
+      /* Features */
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+      }
+      .feature-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--green-light);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
 
-  /* Sticky CTA mobile */
-  .sticky-cta {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: white;
-    padding: 12px 16px;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
-    z-index: 100;
-    display: none;
-  }
-  @media (max-width: 768px) { .sticky-cta { display: block; } }
+      /* Sticky CTA mobile */
+      .sticky-cta {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 12px 16px;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        display: none;
+      }
+      @media (max-width: 768px) {
+        .sticky-cta {
+          display: block;
+        }
+      }
 
-  /* Scroll reveal */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: all 0.6s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
-</head>
-<body>
+      /* Scroll reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: all 0.6s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
 
-<!-- HERO SECTION -->
-<section class="hero-bg py-10 px-4">
-  <div class="max-w-5xl mx-auto">
-
-    <!-- Top badge -->
-    <div class="text-center mb-6">
-      <span class="badge">🔥 أكثر من +3000 عميل شافوا نتيجة حقيقية</span>
-    </div>
-
-    <div class="flex flex-col lg:flex-row gap-10 items-center">
-
-      <!-- Product Images -->
-      <div class="w-full lg:w-1/2 flex flex-col items-center gap-4">
-        <div class="relative">
-          <img id="mainImage" src="https://i.ibb.co/gZwZdF5B/arg-prod.png"
-            alt="أرجيفيت فوكس"
-            class="w-80 h-80 object-contain rounded-2xl bg-white shadow-lg p-4">
-          <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-            ✅ أصلي 100%
-          </div>
+    <!-- Meta Pixel -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js",
+      );
+      fbq("init", "1316875386411052");
+      fbq("track", "PageView");
+    </script>
+  </head>
+  <body>
+    <!-- HERO SECTION -->
+    <section class="hero-bg py-10 px-4">
+      <div class="max-w-5xl mx-auto">
+        <!-- Top badge -->
+        <div class="text-center mb-6">
+          <span class="badge">🔥 أكثر من +3000 عميل شافوا نتيجة حقيقية</span>
         </div>
-        <!-- Thumbnails -->
-        <div class="flex gap-3">
-          <img src="https://i.ibb.co/gZwZdF5B/arg-prod.png" class="img-thumb active" onclick="switchImage(this, 'https://i.ibb.co/gZwZdF5B/arg-prod.png')">
-          <img src="https://i.ibb.co/vCRJmVvP/546047232-122202181094319870-5867676091616035713-n.jpg" class="img-thumb active" onclick="switchImage(this, 'https://i.ibb.co/vCRJmVvP/546047232-122202181094319870-5867676091616035713-n.jpg')">
-          <img src="https://i.ibb.co/gL6yZJ1q/4-50.png" class="img-thumb" onclick="switchImage(this, 'https://i.ibb.co/gL6yZJ1q/4-50.png')">
-          <!-- <img src="https://i.ibb.co/vCRJmVvP/546047232-122202181094319870-5867676091616035713-n.jpg" class="img-thumb" onclick="switchImage(this, 'https://i.ibb.co/vCRJmVvP/546047232-122202181094319870-5867676091616035713-n.jpg')"> -->
+
+        <div class="flex flex-col lg:flex-row gap-10 items-center">
+          <!-- Product Images -->
+          <div class="w-full lg:w-1/2 flex flex-col items-center gap-4">
+            <div class="relative">
+              <img
+                id="mainImage"
+                src="https://i.ibb.co/gZwZdF5B/arg-prod.png"
+                alt="أرجيفيت فوكس"
+                class="w-80 h-80 object-contain rounded-2xl bg-white shadow-lg p-4"
+              />
+              <div
+                class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full"
+              >
+                ✅ أصلي 100%
+              </div>
+            </div>
+            <!-- Thumbnails -->
+            <div class="flex gap-3">
+              <img
+                src="https://i.ibb.co/gZwZdF5B/arg-prod.png"
+                class="img-thumb active"
+                onclick="
+                  switchImage(this, 'https://i.ibb.co/gZwZdF5B/arg-prod.png')
+                "
+              />
+              <img
+                src="https://i.ibb.co/vCRJmVvP/546047232-122202181094319870-5867676091616035713-n.jpg"
+                class="img-thumb active"
+                onclick="
+                  switchImage(
+                    this,
+                    'https://i.ibb.co/vCRJmVvP/546047232-122202181094319870-5867676091616035713-n.jpg',
+                  )
+                "
+              />
+              <img
+                src="https://i.ibb.co/gL6yZJ1q/4-50.png"
+                class="img-thumb"
+                onclick="
+                  switchImage(this, 'https://i.ibb.co/gL6yZJ1q/4-50.png')
+                "
+              />
+              <!-- <img src="https://i.ibb.co/vCRJmVvP/546047232-122202181094319870-5867676091616035713-n.jpg" class="img-thumb" onclick="switchImage(this, 'https://i.ibb.co/vCRJmVvP/546047232-122202181094319870-5867676091616035713-n.jpg')"> -->
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="w-full lg:w-1/2">
+            <h1
+              class="text-3xl lg:text-4xl font-black text-gray-900 leading-tight mb-3"
+            >
+              اطول 4 سم في أقل من 50 يوم 📈
+            </h1>
+            <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+              أرجيفيت فوكس — المكمل الغذائي الطبيعي اللي بيدعم هرمون النمو ويقوي
+              العظام للمراهقين
+            </p>
+
+            <!-- Features -->
+            <div class="mb-6">
+              <div class="feature-item">
+                <div class="feature-icon">💊</div>
+                <span class="font-600 text-gray-700">حبة واحدة في اليوم</span>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">🌿</div>
+                <span class="font-600 text-gray-700"
+                  >تركيبة طبيعية 100% بدون أعراض جانبية</span
+                >
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">📋</div>
+                <span class="font-600 text-gray-700">من سن 10 ل 22 سنة</span>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">🚚</div>
+                <span class="font-600 text-gray-700"
+                  >توصيل لباب البيت بالدفع عند الاستلام</span
+                >
+              </div>
+            </div>
+
+            <!-- Price -->
+            <div class="flex flex-col items-center gap-3 mb-6">
+              <div class="flex items-center gap-4">
+                <span class="md:text-4xl text-2xl font-black text-green-600"
+                  >2,250 جنيه</span
+                >
+                <span class="md:text-xl text-lg text-gray-400 line-through"
+                  >2,800 جنيه</span
+                >
+              </div>
+              <span
+                class="bg-red-100 text-red-600 text-sm font-bold px-3 py-1 rounded-full"
+                >وفر 550 جنيه — العرض متاح حتى 30 ابريل فقط</span
+              >
+            </div>
+
+            <!-- CTA Button -->
+            <button class="btn-buy" onclick="openModal()">
+              🛒 اطلب دلوقتي
+            </button>
+
+            <p class="text-center text-gray-500 text-sm mt-3">
+              🔒 دفع عند الاستلام — مفيش مخاطرة
+            </p>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- Product Info -->
-      <div class="w-full lg:w-1/2">
-
-        <h1 class="text-3xl lg:text-4xl font-black text-gray-900 leading-tight mb-3">
-          اطول 4 سم في أقل من 50 يوم 📈
-        </h1>
-        <p class="text-gray-600 text-lg mb-6 leading-relaxed">
-          أرجيفيت فوكس — المكمل الغذائي الطبيعي اللي بيدعم هرمون النمو ويقوي العظام للمراهقين
+    <!-- SOCIAL PROOF / TESTIMONIALS -->
+    <!-- SOCIAL PROOF / TESTIMONIALS -->
+    <section class="py-12 px-4 bg-white reveal">
+      <div class="max-w-xl mx-auto">
+        <h2 class="text-2xl font-black text-center text-gray-900 mb-2">
+          نتايج عملاء حقيقيين 💬
+        </h2>
+        <p class="text-center text-gray-500 mb-8">
+          مش إعلانات — ده كلام ناس جربت بنفسها
         </p>
 
-        <!-- Features -->
-        <div class="mb-6">
-          <div class="feature-item">
-            <div class="feature-icon">💊</div>
-            <span class="font-600 text-gray-700">حبة واحدة في اليوم</span>
-          </div>
-          <div class="feature-item">
-            <div class="feature-icon">🌿</div>
-            <span class="font-600 text-gray-700">تركيبة طبيعية 100% بدون أعراض جانبية</span>
-          </div>
-          <div class="feature-item">
-            <div class="feature-icon">📋</div>
-            <span class="font-600 text-gray-700">من سن 10 ل 22 سنة</span>
-          </div>
-          <div class="feature-item">
-            <div class="feature-icon">🚚</div>
-            <span class="font-600 text-gray-700">توصيل لباب البيت بالدفع عند الاستلام</span>
-          </div>
+        <!-- Testimonial Images stacked -->
+        <div class="flex flex-col gap-4 items-center">
+          <img
+            src="https://i.ibb.co/gL6yZJ1q/4-50.png"
+            alt="تقييم عميل 1"
+            class="w-full max-w-md rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
+          />
+          <img
+            src="https://i.ibb.co/DHwqBJhw/1.png"
+            alt="تقييم عميل 2"
+            class="w-full max-w-md rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
+          />
+          <img
+            src="https://i.ibb.co/jPLkzSJ1/3.png"
+            alt="تقييم عميل 3"
+            class="w-full max-w-md rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
+          />
+          <img
+            src="https://i.ibb.co/XgD2wb1/2.png"
+            alt="تقييم عميل 4"
+            class="w-full max-w-md rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
+          />
         </div>
 
-        <!-- Price -->
-        <div class="flex flex-col items-center gap-3 mb-6">
-          <div class="flex items-center gap-4">
-            <span class="md:text-4xl text-2xl font-black text-green-600">2,250 جنيه</span>
-            <span class="md:text-xl text-lg text-gray-400 line-through">2,800 جنيه</span>
-          </div>
-          <span class="bg-red-100 text-red-600 text-sm font-bold px-3 py-1 rounded-full">وفر 550 جنيه — العرض متاح حتى 30 ابريل فقط</span>
+        <!-- CTA after testimonials -->
+        <div class="text-center mt-10">
+          <button class="btn-buy max-w-sm mx-auto block" onclick="openModal()">
+            🛒 اطلب دلوقتي — 2,250 جنيه
+          </button>
         </div>
-
-        <!-- CTA Button -->
-        <button class="btn-buy" onclick="openModal()">
-          🛒 اطلب دلوقتي
-        </button>
-
-        <p class="text-center text-gray-500 text-sm mt-3">
-          🔒 دفع عند الاستلام — مفيش مخاطرة
-        </p>
-
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- SOCIAL PROOF / TESTIMONIALS -->
-<!-- SOCIAL PROOF / TESTIMONIALS -->
-<section class="py-12 px-4 bg-white reveal">
-  <div class="max-w-xl mx-auto">
-    <h2 class="text-2xl font-black text-center text-gray-900 mb-2">نتايج عملاء حقيقيين 💬</h2>
-    <p class="text-center text-gray-500 mb-8">مش إعلانات — ده كلام ناس جربت بنفسها</p>
- 
-    <!-- Testimonial Images stacked -->
-    <div class="flex flex-col gap-4 items-center">
-      <img src="https://i.ibb.co/gL6yZJ1q/4-50.png" alt="تقييم عميل 1"
-        class="w-full max-w-md rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
-      <img src="https://i.ibb.co/DHwqBJhw/1.png" alt="تقييم عميل 2"
-        class="w-full max-w-md rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
-      <img src="https://i.ibb.co/jPLkzSJ1/3.png" alt="تقييم عميل 3"
-        class="w-full max-w-md rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
-      <img src="https://i.ibb.co/XgD2wb1/2.png" alt="تقييم عميل 4"
-        class="w-full max-w-md rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
-    </div>
- 
-    <!-- CTA after testimonials -->
-    <div class="text-center mt-10">
-      <button class="btn-buy max-w-sm mx-auto block" onclick="openModal()">
+    <!-- HOW IT WORKS -->
+    <section class="py-12 px-4 bg-gray-50 reveal">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl font-black text-center text-gray-900 mb-8">
+          إزاي بيشتغل؟ 💊
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <div class="bg-white rounded-2xl p-6 shadow-sm">
+            <div class="text-4xl mb-3">📦</div>
+            <h3 class="font-800 text-gray-900 mb-2">اطلب أونلاين</h3>
+            <p class="text-gray-500 text-sm">املا بياناتك وبيتم التأكيد معاك</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm">
+            <div class="text-4xl mb-3">🚚</div>
+            <h3 class="font-800 text-gray-900 mb-2">استلم على بابك</h3>
+            <p class="text-gray-500 text-sm">
+              توصيل لجميع المحافظات بالدفع عند الاستلام
+            </p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm">
+            <div class="text-4xl mb-3">📈</div>
+            <h3 class="font-800 text-gray-900 mb-2">اتبع النظام وشوف</h3>
+            <!-- <p class="text-gray-500 text-sm">المنتج + دليل PDF + تمارين يومية</p> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STICKY CTA MOBILE -->
+    <div class="sticky-cta">
+      <button
+        class="btn-buy"
+        onclick="openModal()"
+        style="animation: none; padding: 14px"
+      >
         🛒 اطلب دلوقتي — 2,250 جنيه
       </button>
     </div>
-  </div>
-</section>
 
+    <!-- ORDER MODAL -->
+    <div class="modal-overlay" id="orderModal">
+      <div class="modal-box">
+        <!-- Form Screen -->
+        <div id="formScreen">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-black text-gray-900">أكمل طلبك 📦</h3>
+            <button
+              onclick="closeModal()"
+              class="text-gray-400 hover:text-gray-700 text-2xl leading-none"
+            >
+              ×
+            </button>
+          </div>
 
-<!-- HOW IT WORKS -->
-<section class="py-12 px-4 bg-gray-50 reveal">
-  <div class="max-w-3xl mx-auto">
-    <h2 class="text-2xl font-black text-center text-gray-900 mb-8">إزاي بيشتغل؟ 💊</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-      <div class="bg-white rounded-2xl p-6 shadow-sm">
-        <div class="text-4xl mb-3">📦</div>
-        <h3 class="font-800 text-gray-900 mb-2">اطلب أونلاين</h3>
-        <p class="text-gray-500 text-sm">املا بياناتك وبيتم التأكيد معاك</p>
-      </div>
-      <div class="bg-white rounded-2xl p-6 shadow-sm">
-        <div class="text-4xl mb-3">🚚</div>
-        <h3 class="font-800 text-gray-900 mb-2">استلم على بابك</h3>
-        <p class="text-gray-500 text-sm">توصيل لجميع المحافظات بالدفع عند الاستلام</p>
-      </div>
-      <div class="bg-white rounded-2xl p-6 shadow-sm">
-        <div class="text-4xl mb-3">📈</div>
-        <h3 class="font-800 text-gray-900 mb-2">اتبع النظام وشوف</h3>
-        <!-- <p class="text-gray-500 text-sm">المنتج + دليل PDF + تمارين يومية</p> -->
+          <div class="space-y-4">
+            <!-- Name -->
+            <div>
+              <label class="form-label">الاسم *</label>
+              <input
+                type="text"
+                id="custName"
+                class="form-input"
+                placeholder="اسمك الكامل"
+              />
+            </div>
+
+            <!-- Phone -->
+            <div>
+              <label class="form-label">رقم الهاتف *</label>
+              <input
+                type="tel"
+                id="custPhone"
+                class="form-input"
+                placeholder="01xxxxxxxxx"
+              />
+            </div>
+
+            <!-- Governorate -->
+            <div>
+              <label class="form-label">المحافظة *</label>
+              <select id="custGov" class="form-input" onchange="updateTotal()">
+                <option value="">اختر المحافظة</option>
+                <option value="القاهرة|100">القاهرة</option>
+                <option value="الجيزة|150">الجيزة</option>
+                <option value="الإسكندرية|150">الإسكندرية</option>
+                <option value="الشرقية|150">الشرقية</option>
+                <option value="الدقهلية|150">الدقهلية</option>
+                <option value="البحيرة|150">البحيرة</option>
+                <option value="المنوفية|150">المنوفية</option>
+                <option value="الغربية|150">الغربية</option>
+                <option value="كفر الشيخ|150">كفر الشيخ</option>
+                <option value="القليوبية|150">القليوبية</option>
+                <option value="الفيوم|150">الفيوم</option>
+                <option value="بني سويف|150">بني سويف</option>
+                <option value="المنيا|150">المنيا</option>
+                <option value="أسيوط|150">أسيوط</option>
+                <option value="سوهاج|150">سوهاج</option>
+                <option value="قنا|150">قنا</option>
+                <option value="الأقصر|150">الأقصر</option>
+                <option value="أسوان|150">أسوان</option>
+                <option value="البحر الأحمر|150">البحر الأحمر</option>
+                <option value="مطروح|150">مطروح</option>
+                <option value="الوادي الجديد|150">الوادي الجديد</option>
+                <option value="شمال سيناء|200">شمال سيناء</option>
+                <option value="جنوب سيناء|200">جنوب سيناء</option>
+                <option value="بورسعيد|150">بورسعيد</option>
+                <option value="الإسماعيلية|150">الإسماعيلية</option>
+                <option value="السويس|150">السويس</option>
+                <option value="دمياط|150">دمياط</option>
+              </select>
+            </div>
+
+            <!-- Address -->
+            <div>
+              <label class="form-label">العنوان بالتفصيل *</label>
+              <input
+                type="text"
+                id="custAddress"
+                class="form-input"
+                placeholder="المنطقة، الشارع، رقم المبنى"
+              />
+            </div>
+
+            <!-- Order Summary -->
+            <div class="summary-box">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-700 font-600">أرجيفيت فوكس</span>
+                <span class="font-700">2,250 جنيه</span>
+              </div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-700 font-600">رسوم الشحن</span>
+                <span class="font-700" id="shippingCost">اختر المحافظة</span>
+              </div>
+              <div
+                class="border-t border-green-200 mt-3 pt-3 flex justify-between items-center"
+              >
+                <span class="font-800 text-gray-900">الإجمالي</span>
+                <span class="text-xl font-900 text-green-600" id="totalPrice"
+                  >—</span
+                >
+              </div>
+            </div>
+
+            <!-- Error message -->
+            <p id="errorMsg" class="text-red-500 text-sm font-600 hidden">
+              ⚠️ من فضلك املا جميع الحقول
+            </p>
+
+            <!-- Order Button -->
+            <button class="btn-order" onclick="submitOrder()">
+              ✅ اطلب دلوقتي — دفع عند الاستلام
+            </button>
+
+            <p class="text-center text-gray-400 text-xs mt-2">
+              🔒 بياناتك آمنة ومش بتتشارك مع أي طرف تالت
+            </p>
+          </div>
+        </div>
+
+        <!-- Success Screen -->
+        <div class="success-screen" id="successScreen">
+          <div class="text-6xl mb-4">🎉</div>
+          <h3 class="text-2xl font-black text-gray-900 mb-3">
+            تم استلام طلبك!
+          </h3>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            هيتواصل معاك فريقنا خلال 24 ساعة لتأكيد الطلب والشحن 🚚
+          </p>
+          <div class="summary-box text-right">
+            <p class="font-700 text-gray-800" id="confirmName"></p>
+            <p class="text-gray-600 text-sm mt-1" id="confirmDetails"></p>
+          </div>
+          <button onclick="location.reload()" class="btn-order mt-6">
+                    تمام 👍      
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- STICKY CTA MOBILE -->
-<div class="sticky-cta">
-  <button class="btn-buy" onclick="openModal()" style="animation: none; padding: 14px;">
-    🛒 اطلب دلوقتي — 2,250 جنيه
-  </button>
-</div>
+    <script>
+      // Image switcher
+      function switchImage(thumb, src) {
+        document.getElementById("mainImage").src = src;
+        document
+          .querySelectorAll(".img-thumb")
+          .forEach((t) => t.classList.remove("active"));
+        thumb.classList.add("active");
+      }
 
-<!-- ORDER MODAL -->
-<div class="modal-overlay" id="orderModal">
-  <div class="modal-box">
+      // Modal
+      function openModal() {
+        document.getElementById("orderModal").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeModal() {
+        document.getElementById("orderModal").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      document
+        .getElementById("orderModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeModal();
+        });
 
-    <!-- Form Screen -->
-    <div id="formScreen">
-      <div class="flex items-center justify-between mb-6">
-        <h3 class="text-xl font-black text-gray-900">أكمل طلبك 📦</h3>
-        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-700 text-2xl leading-none">×</button>
-      </div>
+      // Shipping calculation
+      function updateTotal() {
+        const gov = document.getElementById("custGov").value;
+        if (!gov) {
+          document.getElementById("shippingCost").textContent = "اختر المحافظة";
+          document.getElementById("totalPrice").textContent = "—";
+          return;
+        }
+        const shipping = parseInt(gov.split("|")[1]);
+        const total = 2250 + shipping;
+        document.getElementById("shippingCost").textContent =
+          shipping + " جنيه";
+        document.getElementById("totalPrice").textContent =
+          total.toLocaleString("ar-EG") + " جنيه";
+      }
 
-      <div class="space-y-4">
+      // Submit
+      function submitOrder() {
+        const name = document.getElementById("custName").value.trim();
+        const phone = document.getElementById("custPhone").value.trim();
+        const gov = document.getElementById("custGov").value;
+        const address = document.getElementById("custAddress").value.trim();
+        const errorMsg = document.getElementById("errorMsg");
 
-        <!-- Name -->
-        <div>
-          <label class="form-label">الاسم *</label>
-          <input type="text" id="custName" class="form-input" placeholder="اسمك الكامل">
-        </div>
+        if (!name || !phone || !gov || !address) {
+          errorMsg.classList.remove("hidden");
+          return;
+        }
+        errorMsg.classList.add("hidden");
 
-        <!-- Phone -->
-        <div>
-          <label class="form-label">رقم الهاتف *</label>
-          <input type="tel" id="custPhone" class="form-input" placeholder="01xxxxxxxxx">
-        </div>
+        const govName = gov.split("|")[0];
+        const shipping = parseInt(gov.split("|")[1]);
+        const total = 2250 + shipping;
 
-        <!-- Governorate -->
-        <div>
-          <label class="form-label">المحافظة *</label>
-          <select id="custGov" class="form-input" onchange="updateTotal()">
-            <option value="">اختر المحافظة</option>
-            <option value="القاهرة|100">القاهرة</option>
-            <option value="الجيزة|150">الجيزة</option>
-            <option value="الإسكندرية|150">الإسكندرية</option>
-            <option value="الشرقية|150">الشرقية</option>
-            <option value="الدقهلية|150">الدقهلية</option>
-            <option value="البحيرة|150">البحيرة</option>
-            <option value="المنوفية|150">المنوفية</option>
-            <option value="الغربية|150">الغربية</option>
-            <option value="كفر الشيخ|150">كفر الشيخ</option>
-            <option value="القليوبية|150">القليوبية</option>
-            <option value="الفيوم|150">الفيوم</option>
-            <option value="بني سويف|150">بني سويف</option>
-            <option value="المنيا|150">المنيا</option>
-            <option value="أسيوط|150">أسيوط</option>
-            <option value="سوهاج|150">سوهاج</option>
-            <option value="قنا|150">قنا</option>
-            <option value="الأقصر|150">الأقصر</option>
-            <option value="أسوان|150">أسوان</option>
-            <option value="البحر الأحمر|150">البحر الأحمر</option>
-            <option value="مطروح|150">مطروح</option>
-            <option value="الوادي الجديد|150">الوادي الجديد</option>
-            <option value="شمال سيناء|200">شمال سيناء</option>
-            <option value="جنوب سيناء|200">جنوب سيناء</option>
-            <option value="بورسعيد|150">بورسعيد</option>
-            <option value="الإسماعيلية|150">الإسماعيلية</option>
-            <option value="السويس|150">السويس</option>
-            <option value="دمياط|150">دمياط</option>
-          </select>
-        </div>
+        // Google Sheets webhook (replace with your URL)
+        const SHEET_URL = "https://n8n.youssef.im/webhook/get-order";
 
-        <!-- Address -->
-        <div>
-          <label class="form-label">العنوان بالتفصيل *</label>
-          <input type="text" id="custAddress" class="form-input" placeholder="المنطقة، الشارع، رقم المبنى">
-        </div>
+        fetch(SHEET_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            phone,
+            governorate: govName,
+            address,
+            product: "أرجيفيت فوكس",
+            price: 2250,
+            shipping,
+            total,
+            date: new Date().toLocaleString("ar-EG"),
+          }),
+        }).catch(() => {});
 
-        <!-- Order Summary -->
-        <div class="summary-box">
-          <div class="flex justify-between items-center mb-2">
-            <span class="text-gray-700 font-600">أرجيفيت فوكس</span>
-            <span class="font-700">2,250 جنيه</span>
-          </div>
-          <div class="flex justify-between items-center mb-2">
-            <span class="text-gray-700 font-600">رسوم الشحن</span>
-            <span class="font-700" id="shippingCost">اختر المحافظة</span>
-          </div>
-          <div class="border-t border-green-200 mt-3 pt-3 flex justify-between items-center">
-            <span class="font-800 text-gray-900">الإجمالي</span>
-            <span class="text-xl font-900 text-green-600" id="totalPrice">—</span>
-          </div>
-        </div>
+        // Meta Pixel - Purchase
+        fbq('track', 'Purchase', {
+          value: total,
+          currency: 'EGP',
+          content_name: 'أرجيفيت فوكس',
+          content_type: 'product'
+        });
 
-        <!-- Error message -->
-        <p id="errorMsg" class="text-red-500 text-sm font-600 hidden">⚠️ من فضلك املا جميع الحقول</p>
+        // Show success
+        document.getElementById("confirmName").textContent =
+          "👤 " + name + " — " + phone;
+        document.getElementById("confirmDetails").textContent =
+          govName +
+          " — " +
+          address +
+          " | الإجمالي: " +
+          total.toLocaleString("ar-EG") +
+          " جنيه";
+        document.getElementById("formScreen").style.display = "none";
+        document.getElementById("successScreen").style.display = "block";
+      }
 
-        <!-- Order Button -->
-        <button class="btn-order" onclick="submitOrder()">
-          ✅ اطلب دلوقتي — دفع عند الاستلام
-        </button>
-
-        <p class="text-center text-gray-400 text-xs mt-2">
-          🔒 بياناتك آمنة ومش بتتشارك مع أي طرف تالت
-        </p>
-
-      </div>
-    </div>
-
-    <!-- Success Screen -->
-    <div class="success-screen" id="successScreen">
-      <div class="text-6xl mb-4">🎉</div>
-      <h3 class="text-2xl font-black text-gray-900 mb-3">تم استلام طلبك!</h3>
-      <p class="text-gray-600 leading-relaxed mb-6">
-        هيتواصل معاك فريقنا خلال 24 ساعة لتأكيد الطلب والشحن 🚚
-      </p>
-      <div class="summary-box text-right">
-        <p class="font-700 text-gray-800" id="confirmName"></p>
-        <p class="text-gray-600 text-sm mt-1" id="confirmDetails"></p>
-      </div>
-      <button onclick="location.reload()" class="btn-order mt-6">
-        تمام 👍
-      </button>
-    </div>
-
-  </div>
-</div>
-
-<script>
-  // Image switcher
-  function switchImage(thumb, src) {
-    document.getElementById('mainImage').src = src;
-    document.querySelectorAll('.img-thumb').forEach(t => t.classList.remove('active'));
-    thumb.classList.add('active');
-  }
-
-  // Modal
-  function openModal() {
-    document.getElementById('orderModal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal() {
-    document.getElementById('orderModal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.getElementById('orderModal').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
-  });
-
-  // Shipping calculation
-  function updateTotal() {
-    const gov = document.getElementById('custGov').value;
-    if (!gov) {
-      document.getElementById('shippingCost').textContent = 'اختر المحافظة';
-      document.getElementById('totalPrice').textContent = '—';
-      return;
-    }
-    const shipping = parseInt(gov.split('|')[1]);
-    const total = 2250 + shipping;
-    document.getElementById('shippingCost').textContent = shipping + ' جنيه';
-    document.getElementById('totalPrice').textContent = total.toLocaleString('ar-EG') + ' جنيه';
-  }
-
-  // Submit
-  function submitOrder() {
-    const name = document.getElementById('custName').value.trim();
-    const phone = document.getElementById('custPhone').value.trim();
-    const gov = document.getElementById('custGov').value;
-    const address = document.getElementById('custAddress').value.trim();
-    const errorMsg = document.getElementById('errorMsg');
-
-    if (!name || !phone || !gov || !address) {
-      errorMsg.classList.remove('hidden');
-      return;
-    }
-    errorMsg.classList.add('hidden');
-
-    const govName = gov.split('|')[0];
-    const shipping = parseInt(gov.split('|')[1]);
-    const total = 2250 + shipping;
-
-    // Google Sheets webhook (replace with your URL)
-    const SHEET_URL = 'https://n8n.youssef.im/webhook/get-order';
-
-    fetch(SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name, phone,
-        governorate: govName,
-        address,
-        product: 'أرجيفيت فوكس',
-        price: 2250,
-        shipping,
-        total,
-        date: new Date().toLocaleString('ar-EG')
-      })
-    }).catch(() => {});
-
-    // Show success
-    document.getElementById('confirmName').textContent = '👤 ' + name + ' — ' + phone;
-    document.getElementById('confirmDetails').textContent = govName + ' — ' + address + ' | الإجمالي: ' + total.toLocaleString('ar-EG') + ' جنيه';
-    document.getElementById('formScreen').style.display = 'none';
-    document.getElementById('successScreen').style.display = 'block';
-  }
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  reveals.forEach(r => observer.observe(r));
-</script>
-
-</body>
+      // Scroll reveal
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1 },
+      );
+      reveals.forEach((r) => observer.observe(r));
+    </script>
+  </body>
 </html>
