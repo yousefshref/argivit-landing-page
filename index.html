@@ -385,7 +385,7 @@
               </div>
               <span
                 class="bg-red-100 text-red-600 text-sm font-bold px-3 py-1 rounded-full"
-                >وفر 550 جنيه</span
+                >وفر 550 جنيه ـ العرض حتى 30 ابريل فقط ـ ناقص يوم واحد</span
               >
             </div>
 
@@ -667,7 +667,7 @@
       }
 
       // Submit
-      function submitOrder() {
+      async function submitOrder() {
         const name = document.getElementById("custName").value.trim();
         const phone = document.getElementById("custPhone").value.trim();
         const gov = document.getElementById("custGov").value;
@@ -684,35 +684,34 @@
         const shipping = parseInt(gov.split("|")[1]);
         const total = 2250 + shipping;
 
-        // Google Sheets webhook (replace with your URL)
         const SHEET_URL = "https://n8n.youssef.im/webhook/get-order";
 
-        fetch(SHEET_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name,
-            phone,
-            governorate: govName,
-            address,
-            product: "أرجيفيت فوكس",
-            price: 2250,
-            shipping,
-            total,
-            date: new Date().toLocaleString("ar-EG"),
-          }),
-        }).catch(() => {});
+        try {
+          await fetch(SHEET_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              phone,
+              governorate: govName,
+              address,
+              product: "أرجيفيت فوكس",
+              price: 2250,
+              shipping,
+              total,
+              date: new Date().toLocaleString("ar-EG"),
+            }),
+          });
+        } catch (e) {}
 
-        // Meta Pixel - Purchase
-        fbq('track', 'Purchase', {
+        fbq("track", "Purchase", {
           value: total,
-          currency: 'EGP',
-          content_name: 'أرجيفيت فوكس',
-          content_type: 'product'
+          currency: "EGP",
+          content_name: "أرجيفيت فوكس",
+          content_type: "product",
         });
 
-        // Show success
         document.getElementById("confirmName").textContent =
           "👤 " + name + " — " + phone;
         document.getElementById("confirmDetails").textContent =
