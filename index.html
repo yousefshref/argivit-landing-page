@@ -725,12 +725,12 @@
         } catch (e) {}
 
         // 3. Meta Pixel
-        // fbq("track", "Purchase", {
-        //   value: total,
-        //   currency: "EGP",
-        //   content_name: "أرجيفيت فوكس",
-        //   content_type: "product",
-        // });
+        fbq("track", "Purchase", {
+          value: total,
+          currency: "EGP",
+          content_name: "أرجيفيت فوكس",
+          content_type: "product",
+        });
 
         document.getElementById("confirmName").textContent =
           "👤 " + name + " — " + phone;
