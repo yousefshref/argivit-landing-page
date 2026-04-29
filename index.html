@@ -684,33 +684,49 @@
         const shipping = parseInt(gov.split("|")[1]);
         const total = 2250 + shipping;
 
-        const SHEET_URL = "https://n8n.youssef.im/webhook/get-order";
+        const orderData = {
+          name,
+          phone,
+          governorate: govName,
+          address,
+          product: "أرجيفيت فوكس",
+          price: 2250,
+          shipping,
+          total,
+          date: new Date().toLocaleString("ar-EG"),
+        };
 
+        // 1. Supabase - FIRST
         try {
-          await fetch(SHEET_URL, {
+          await fetch("https://sozkprejeqvpiibtwvpa.supabase.co/rest/v1/orders", {
             method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name,
-              phone,
-              governorate: govName,
-              address,
-              product: "أرجيفيت فوكس",
-              price: 2250,
-              shipping,
-              total,
-              date: new Date().toLocaleString("ar-EG"),
-            }),
+            headers: {
+              "Content-Type": "application/json",
+              apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvemtwcmVqZXF2cGlpYnR3dnBhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyNzc0MDcsImV4cCI6MjA3NTg1MzQwN30.XTR3wJkkASZzqIwbE2AkYygwFurGm2UxSMEFbVM3j9M",
+              Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvemtwcmVqZXF2cGlpYnR3dnBhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyNzc0MDcsImV4cCI6MjA3NTg1MzQwN30.XTR3wJkkASZzqIwbE2AkYygwFurGm2UxSMEFbVM3j9M",
+              Prefer: "return=minimal",
+            },
+            body: JSON.stringify(orderData),
           });
         } catch (e) {}
 
-        fbq("track", "Purchase", {
-          value: total,
-          currency: "EGP",
-          content_name: "أرجيفيت فوكس",
-          content_type: "product",
-        });
+        // 2. n8n webhook - SECOND
+        try {
+          await fetch("https://n8n.youssef.im/webhook/get-order", {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(orderData),
+          });
+        } catch (e) {}
+
+        // 3. Meta Pixel
+        // fbq("track", "Purchase", {
+        //   value: total,
+        //   currency: "EGP",
+        //   content_name: "أرجيفيت فوكس",
+        //   content_type: "product",
+        // });
 
         document.getElementById("confirmName").textContent =
           "👤 " + name + " — " + phone;
