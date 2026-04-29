@@ -253,8 +253,8 @@
       }
     </style>
 
-    <!-- Meta Pixel -->
-    <!-- <script>
+    <!-- Meta Pixel Base Code -->
+    <script>
       !(function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
         n = f.fbq = function () {
@@ -280,7 +280,13 @@
       );
       fbq("init", "1316875386411052");
       fbq("track", "PageView");
-    </script> -->
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1316875386411052&ev=PageView&noscript=1"
+      />
+    </noscript>
+    <!-- End Meta Pixel Base Code -->
   </head>
   <body>
     <!-- HERO SECTION -->
@@ -639,6 +645,15 @@
       function openModal() {
         document.getElementById("orderModal").classList.add("open");
         document.body.style.overflow = "hidden";
+        // Meta Pixel: InitiateCheckout
+        if (typeof fbq !== "undefined") {
+          fbq("track", "InitiateCheckout", {
+            value: 2250,
+            currency: "EGP",
+            content_name: "أرجيفيت فوكس",
+            content_type: "product",
+          });
+        }
       }
       function closeModal() {
         document.getElementById("orderModal").classList.remove("open");
@@ -696,9 +711,10 @@
           date: new Date().toLocaleString("ar-EG"),
         };
 
-        // 1. Supabase - FIRST
+        // 1. Supabase - FIRST — must succeed before we fire Purchase
+        let orderSaved = false;
         try {
-          await fetch("https://sozkprejeqvpiibtwvpa.supabase.co/rest/v1/safezone", {
+          const supaRes = await fetch("https://sozkprejeqvpiibtwvpa.supabase.co/rest/v1/safezone", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -707,14 +723,17 @@
               Prefer: "return=minimal",
             },
             body: JSON.stringify(orderData),
-          }).then((res) => {
-            console.error("Supabase error:", res);
           });
+          if (supaRes.ok || supaRes.status === 201) {
+            orderSaved = true;
+          } else {
+            console.error("Supabase error status:", supaRes.status);
+          }
         } catch (e) {
           console.error("Supabase fetch error:", e);
         }
 
-        // 2. n8n webhook - SECOND
+        // 2. n8n webhook - SECOND (fire regardless, best-effort)
         try {
           await fetch("https://n8n.youssef.im/webhook/get-order", {
             method: "POST",
@@ -724,13 +743,17 @@
           });
         } catch (e) {}
 
-        // 3. Meta Pixel
-        // fbq("track", "Purchase", {
-        //   value: total,
-        //   currency: "EGP",
-        //   content_name: "أرجيفيت فوكس",
-        //   content_type: "product",
-        // });
+        // 3. Meta Pixel — Purchase ONLY if order was actually saved
+        if (orderSaved && typeof fbq !== "undefined") {
+          fbq("track", "Purchase", {
+            value: total,
+            currency: "EGP",
+            content_name: "أرجيفيت فوكس",
+            content_type: "product",
+            content_ids: ["argivit-fox"],
+            num_items: 1,
+          });
+        }
 
         document.getElementById("confirmName").textContent =
           "👤 " + name + " — " + phone;
@@ -756,6 +779,17 @@
         { threshold: 0.1 },
       );
       reveals.forEach((r) => observer.observe(r));
+
+      // Meta Pixel: ViewContent on page load
+      if (typeof fbq !== "undefined") {
+        fbq("track", "ViewContent", {
+          value: 2250,
+          currency: "EGP",
+          content_name: "أرجيفيت فوكس",
+          content_type: "product",
+          content_ids: ["argivit-fox"],
+        });
+      }
     </script>
   </body>
 </html>
