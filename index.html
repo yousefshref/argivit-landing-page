@@ -698,7 +698,7 @@
 
         // 1. Supabase - FIRST
         try {
-          await fetch("https://sozkprejeqvpiibtwvpa.supabase.co/rest/v1/orders", {
+          await fetch("https://sozkprejeqvpiibtwvpa.supabase.co/rest/v1/safezone", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -707,8 +707,12 @@
               Prefer: "return=minimal",
             },
             body: JSON.stringify(orderData),
+          }).then((res) => {
+            console.error("Supabase error:", res);
           });
-        } catch (e) {}
+        } catch (e) {
+          console.error("Supabase fetch error:", e);
+        }
 
         // 2. n8n webhook - SECOND
         try {
