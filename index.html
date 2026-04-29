@@ -658,6 +658,13 @@
       function closeModal() {
         document.getElementById("orderModal").classList.remove("open");
         document.body.style.overflow = "";
+        // Reset submit lock and form for next open
+        isSubmitting = false;
+        const orderBtn = document.querySelector(".btn-order");
+        if (orderBtn) {
+          orderBtn.disabled = false;
+          orderBtn.textContent = "✅ اطلب دلوقتي — دفع عند الاستلام";
+        }
       }
       document
         .getElementById("orderModal")
@@ -682,7 +689,11 @@
       }
 
       // Submit
+      let isSubmitting = false;
       async function submitOrder() {
+        // Block if already submitting
+        if (isSubmitting) return;
+
         const name = document.getElementById("custName").value.trim();
         const phone = document.getElementById("custPhone").value.trim();
         const gov = document.getElementById("custGov").value;
@@ -694,6 +705,12 @@
           return;
         }
         errorMsg.classList.add("hidden");
+
+        // Lock the button immediately
+        isSubmitting = true;
+        const orderBtn = document.querySelector(".btn-order");
+        orderBtn.disabled = true;
+        orderBtn.textContent = "⏳ جاري إرسال الطلب...";
 
         const govName = gov.split("|")[0];
         const shipping = parseInt(gov.split("|")[1]);
@@ -753,6 +770,16 @@
             content_ids: ["argivit-fox"],
             num_items: 1,
           });
+        }
+
+        if (!orderSaved) {
+          // Failed — unlock button so user can retry
+          isSubmitting = false;
+          orderBtn.disabled = false;
+          orderBtn.textContent = "✅ اطلب دلوقتي — دفع عند الاستلام";
+          errorMsg.textContent = "⚠️ حصل خطأ، حاول تاني";
+          errorMsg.classList.remove("hidden");
+          return;
         }
 
         document.getElementById("confirmName").textContent =
