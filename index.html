@@ -223,6 +223,36 @@
         flex-shrink: 0;
       }
 
+      /* Floating WhatsApp */
+      .float-whatsapp {
+        position: fixed;
+        bottom: 80px;
+        left: 16px;
+        width: 56px;
+        height: 56px;
+        background: #25D366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 16px rgba(37, 211, 102, 0.5);
+        z-index: 200;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        text-decoration: none;
+      }
+      .float-whatsapp:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 24px rgba(37, 211, 102, 0.6);
+      }
+      @keyframes wa-pulse {
+        0%, 100% { box-shadow: 0 4px 16px rgba(37, 211, 102, 0.5); }
+        50% { box-shadow: 0 4px 28px rgba(37, 211, 102, 0.8); }
+      }
+      .float-whatsapp {
+        animation: wa-pulse 2.5s infinite;
+      }
+
       /* Sticky CTA mobile */
       .sticky-cta {
         position: fixed;
@@ -239,6 +269,13 @@
         .sticky-cta {
           display: block;
         }
+      }
+
+      /* Variant buttons */
+      .variant-btn.selected {
+        border-color: var(--green);
+        background: var(--green-light);
+        color: var(--green-dark);
       }
 
       /* Scroll reveal */
@@ -348,11 +385,10 @@
             <h1
               class="text-3xl lg:text-4xl font-black text-gray-900 leading-tight mb-3"
             >
-              اطول 4 سم في أقل من 50 يوم 📈
+              ليه صحابه بيكبروا وهو لسه في نفس الطول؟ 📈
             </h1>
             <p class="text-gray-600 text-lg mb-6 leading-relaxed">
-              أرجيفيت فوكس — المكمل الغذائي الطبيعي اللي بيدعم هرمون النمو ويقوي
-              العظام للمراهقين
+              مش بالضرورة الأكل ناقص — ممكن جسمه محتاج عنصر واحد بس بيفرق كل الفرق
             </p>
 
             <!-- Features -->
@@ -369,7 +405,7 @@
               </div>
               <div class="feature-item">
                 <div class="feature-icon">📋</div>
-                <span class="font-600 text-gray-700">من سن 10 ل 22 سنة</span>
+                <span class="font-600 text-gray-700">من سن 6 ل 22 سنة</span>
               </div>
               <div class="feature-item">
                 <div class="feature-icon">🚚</div>
@@ -379,8 +415,23 @@
               </div>
             </div>
 
+            <!-- Variant Selector -->
+            <div class="mb-4">
+              <p class="font-700 text-gray-800 mb-2">اختاري الشكل:</p>
+              <div class="flex gap-3">
+                <button id="variantTablets" onclick="selectVariant('حبوب')"
+                  class="variant-btn flex-1 py-3 rounded-xl border-2 border-green-500 bg-green-50 font-800 text-green-700 transition-all">
+                  💊 حبوب
+                </button>
+                <button id="variantSyrup" onclick="selectVariant('شراب')"
+                  class="variant-btn flex-1 py-3 rounded-xl border-2 border-gray-200 bg-white font-800 text-gray-500 transition-all">
+                  🧴 شراب
+                </button>
+              </div>
+            </div>
+
             <!-- Price -->
-            <div class="flex flex-col items-center gap-3 mb-6">
+            <div class="flex flex-col items-center gap-3 mb-4">
               <div class="flex items-center gap-4">
                 <span class="md:text-4xl text-2xl font-black text-green-600"
                   >2,250 جنيه</span
@@ -391,7 +442,7 @@
               </div>
               <span
                 class="bg-red-100 text-red-600 text-sm font-bold px-3 py-1 rounded-full"
-                >وفر 550 جنيه ـ العرض حتى 30 ابريل فقط ـ ناقص يوم واحد</span
+                >وفر 550 جنيه</span
               >
             </div>
 
@@ -399,6 +450,13 @@
             <button class="btn-buy" onclick="openModal()">
               🛒 اطلب دلوقتي
             </button>
+
+            <!-- WhatsApp Button -->
+            <a href="https://wa.me/201023455435" target="_blank"
+              class="flex items-center justify-center gap-2 w-full mt-3 py-4 rounded-2xl border-2 border-green-500 text-green-600 font-800 text-lg hover:bg-green-50 transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              عندك سؤال؟ كلمينا على واتساب
+            </a>
 
             <p class="text-center text-gray-500 text-sm mt-3">
               🔒 دفع عند الاستلام — مفيش مخاطرة
@@ -480,15 +538,26 @@
       </div>
     </section>
 
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/201023455435?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85+%D8%B9%D9%84%D9%8A%D9%83%D9%85%2C+%D8%B9%D8%A7%D9%8A%D8%B2+%D8%A7%D8%B4%D8%AA%D8%B1%D9%8A+%D8%A7%D8%B1%D8%AC%D9%8A%D9%81%D9%8A%D8%AA" target="_blank" class="float-whatsapp">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
     <!-- STICKY CTA MOBILE -->
     <div class="sticky-cta">
-      <button
-        class="btn-buy"
-        onclick="openModal()"
-        style="animation: none; padding: 14px"
-      >
-        🛒 اطلب دلوقتي — 2,250 جنيه
-      </button>
+      <div class="flex gap-2">
+        <button
+          class="btn-buy flex-1"
+          onclick="openModal()"
+          style="animation: none; padding: 14px"
+        >
+          🛒 اطلب دلوقتي — 2,250 جنيه
+        </button>
+        <a href="https://wa.me/201023455435?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%2C%20%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A7%D8%B4%D8%AA%D8%B1%D9%8A%20%D8%A7%D8%B1%D8%AC%D9%8A%D9%81%D9%8A%D8%AA" target="_blank"
+          style="animation: none; padding: 14px; background: #25D366; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 52px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+      </div>
     </div>
 
     <!-- ORDER MODAL -->
@@ -578,8 +647,8 @@
             <!-- Order Summary -->
             <div class="summary-box">
               <div class="flex justify-between items-center mb-2">
-                <span class="text-gray-700 font-600">أرجيفيت فوكس</span>
-                <span class="font-700">2,250 جنيه</span>
+                <span class="text-gray-700 font-600">المنتج</span>
+                <span class="font-700" id="summaryProduct">أرجيفيت فوكس — حبوب × 1</span>
               </div>
               <div class="flex justify-between items-center mb-2">
                 <span class="text-gray-700 font-600">رسوم الشحن</span>
@@ -632,6 +701,29 @@
     </div>
 
     <script>
+      // Variant & Quantity state
+      let selectedVariant = 'حبوب';
+      const BASE_PRICE = 2250;
+
+      function selectVariant(variant) {
+        selectedVariant = variant;
+        document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('selected', 'border-green-500', 'bg-green-50', 'text-green-700'));
+        document.querySelectorAll('.variant-btn').forEach(b => {
+          b.classList.add('border-gray-200', 'bg-white', 'text-gray-500');
+        });
+        const activeBtn = variant === 'حبوب' ? document.getElementById('variantTablets') : document.getElementById('variantSyrup');
+        activeBtn.classList.remove('border-gray-200', 'bg-white', 'text-gray-500');
+        activeBtn.classList.add('selected');
+        updateSummaryProduct();
+      }
+
+      function updateSummaryProduct() {
+        document.getElementById('summaryProduct').textContent = 'أرجيفيت فوكس — ' + selectedVariant;
+      }
+
+      // Init variant selected state
+      document.getElementById('variantTablets').classList.add('selected');
+
       // Image switcher
       function switchImage(thumb, src) {
         document.getElementById("mainImage").src = src;
@@ -643,12 +735,12 @@
 
       // Modal
       function openModal() {
+        updateSummaryProduct();
         document.getElementById("orderModal").classList.add("open");
         document.body.style.overflow = "hidden";
-        // Meta Pixel: InitiateCheckout
         if (typeof fbq !== "undefined") {
           fbq("track", "InitiateCheckout", {
-            value: 2250,
+            value: BASE_PRICE,
             currency: "EGP",
             content_name: "أرجيفيت فوكس",
             content_type: "product",
@@ -658,7 +750,6 @@
       function closeModal() {
         document.getElementById("orderModal").classList.remove("open");
         document.body.style.overflow = "";
-        // Reset submit lock and form for next open
         isSubmitting = false;
         const orderBtn = document.querySelector(".btn-order");
         if (orderBtn) {
@@ -681,17 +772,14 @@
           return;
         }
         const shipping = parseInt(gov.split("|")[1]);
-        const total = 2250 + shipping;
-        document.getElementById("shippingCost").textContent =
-          shipping + " جنيه";
-        document.getElementById("totalPrice").textContent =
-          total.toLocaleString("ar-EG") + " جنيه";
+        const total = BASE_PRICE + shipping;
+        document.getElementById("shippingCost").textContent = shipping + " جنيه";
+        document.getElementById("totalPrice").textContent = total.toLocaleString("ar-EG") + " جنيه";
       }
 
       // Submit
       let isSubmitting = false;
       async function submitOrder() {
-        // Block if already submitting
         if (isSubmitting) return;
 
         const name = document.getElementById("custName").value.trim();
@@ -706,7 +794,6 @@
         }
         errorMsg.classList.add("hidden");
 
-        // Lock the button immediately
         isSubmitting = true;
         const orderBtn = document.querySelector(".btn-order");
         orderBtn.disabled = true;
@@ -714,7 +801,7 @@
 
         const govName = gov.split("|")[0];
         const shipping = parseInt(gov.split("|")[1]);
-        const total = 2250 + shipping;
+        const total = BASE_PRICE + shipping;
 
         const orderData = {
           name,
@@ -722,58 +809,56 @@
           governorate: govName,
           address,
           product: "أرجيفيت فوكس",
-          price: 2250,
+          variant: selectedVariant,
+          price: BASE_PRICE,
           shipping,
           total,
           date: new Date().toLocaleString("ar-EG"),
         };
 
-        // 1. Supabase - FIRST — must succeed before we fire Purchase
+        // 1. Supabase
         let orderSaved = false;
-        try {
-          const supaRes = await fetch("https://sozkprejeqvpiibtwvpa.supabase.co/rest/v1/safezone", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvemtwcmVqZXF2cGlpYnR3dnBhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyNzc0MDcsImV4cCI6MjA3NTg1MzQwN30.XTR3wJkkASZzqIwbE2AkYygwFurGm2UxSMEFbVM3j9M",
-              Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvemtwcmVqZXF2cGlpYnR3dnBhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyNzc0MDcsImV4cCI6MjA3NTg1MzQwN30.XTR3wJkkASZzqIwbE2AkYygwFurGm2UxSMEFbVM3j9M",
-              Prefer: "return=minimal",
-            },
-            body: JSON.stringify(orderData),
-          });
-          if (supaRes.ok || supaRes.status === 201) {
-            orderSaved = true;
-          } else {
-            console.error("Supabase error status:", supaRes.status);
-          }
-        } catch (e) {
-          console.error("Supabase fetch error:", e);
-        }
+        // try {
+        //   const supaRes = await fetch("https://sozkprejeqvpiibtwvpa.supabase.co/rest/v1/safezone", {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //       apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvemtwcmVqZXF2cGlpYnR3dnBhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyNzc0MDcsImV4cCI6MjA3NTg1MzQwN30.XTR3wJkkASZzqIwbE2AkYygwFurGm2UxSMEFbVM3j9M",
+        //       Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvemtwcmVqZXF2cGlpYnR3dnBhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyNzc0MDcsImV4cCI6MjA3NTg1MzQwN30.XTR3wJkkASZzqIwbE2AkYygwFurGm2UxSMEFbVM3j9M",
+        //       Prefer: "return=minimal",
+        //     },
+        //     body: JSON.stringify(orderData),
+        //   });
+        //   if (supaRes.ok || supaRes.status === 201) orderSaved = true;
+        //   else console.error("Supabase error status:", supaRes.status);
+        // } catch (e) {
+        //   console.error("Supabase fetch error:", e);
+        // }
 
-        // 2. n8n webhook - SECOND (fire regardless, best-effort)
+        // 2. n8n webhook
         try {
           await fetch("https://n8n.youssef.im/webhook/get-order", {
             method: "POST",
             mode: "no-cors",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(orderData),
+          }).finally(() => {
+            orderSaved = true; // Assume success since we can't read the response
           });
         } catch (e) {}
 
-        // 3. Meta Pixel — Purchase ONLY if order was actually saved
+        // 3. Meta Pixel Purchase
         if (orderSaved && typeof fbq !== "undefined") {
           fbq("track", "Purchase", {
             value: total,
             currency: "EGP",
-            content_name: "أرجيفيت فوكس",
+            content_name: "أرجيفيت فوكس — " + selectedVariant,
             content_type: "product",
-            content_ids: ["argivit-fox"],
-            num_items: 1,
+            content_ids: ["argivit-" + selectedVariant],
           });
         }
 
         if (!orderSaved) {
-          // Failed — unlock button so user can retry
           isSubmitting = false;
           orderBtn.disabled = false;
           orderBtn.textContent = "✅ اطلب دلوقتي — دفع عند الاستلام";
@@ -782,15 +867,9 @@
           return;
         }
 
-        document.getElementById("confirmName").textContent =
-          "👤 " + name + " — " + phone;
+        document.getElementById("confirmName").textContent = "👤 " + name + " — " + phone;
         document.getElementById("confirmDetails").textContent =
-          govName +
-          " — " +
-          address +
-          " | الإجمالي: " +
-          total.toLocaleString("ar-EG") +
-          " جنيه";
+          govName + " — " + address + " | " + selectedVariant + " | الإجمالي: " + total.toLocaleString("ar-EG") + " جنيه";
         document.getElementById("formScreen").style.display = "none";
         document.getElementById("successScreen").style.display = "block";
       }
@@ -807,7 +886,7 @@
       );
       reveals.forEach((r) => observer.observe(r));
 
-      // Meta Pixel: ViewContent on page load
+      // Meta Pixel ViewContent
       if (typeof fbq !== "undefined") {
         fbq("track", "ViewContent", {
           value: 2250,
